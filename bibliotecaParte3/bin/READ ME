@@ -1,0 +1,36 @@
+8 - Explique e mostre quais os tipos de polimorfismo utilizados.
+
+R: É usado polimorfismo de inclusão(Subtipagem) que permite tratar os objetos de uma subclasse como objetos da classe base, por exemplo 
+
+Obra obra1 = new Livro();
+Obra obra2 = new MidiaAudio();
+Obra obra3 = new Fotografia();
+
+O segundo tipo de polimorfismo usado é o de sobrescrita que permite que subclasses forneçam implementações específicas de métodos, por exemplo
+
+@Override
+public void acessarObra() {
+    abrirLivro(); // na classe Livro
+}
+
+@Override
+public void acessarObra() {
+    System.out.println("Reproduzindo a mídia de áudio " + getTitulo() + " com duração de " + duracao + " minutos e formato " + formato); // Na classe MidiaAudio
+}
+
+@Override
+public void acessarObra() {
+    System.out.println("Visualizando a fotografia: " + getTitulo() + " com resolução " + resolucao + " e formato " + formato); //Na classe Fotografia
+}
+
+9- Explique como poderíamos implementar regras de empréstimos, por exemplo:
+Empréstimos para estudantes: até 3 livros, por até 7 dias
+Empréstimos para funcionários: até 6 livros, por até 15 dias
+Empréstimos para professores: até 9 livros, por até 30 dias.
+
+R: Para implementar regras de empréstimos diferentes, adicionamos um atributo tipo à classe Usuario para saber se o usuário é estudante, funcionário ou professor para que
+quando fazermos um empréstimo, checamos o tipo de usuário e aplicamos as regras: estudantes podem pegar até 3 livros por 7 dias, funcionários até 6 livros por 15 dias, e professores até 9 livros por 30 dias. 
+Criamos métodos que verificam quantos livros o usuário já pegou e por quanto tempo.
+
+No método de realizar empréstimos, primeiro verificamos se o usuário e o livro estão nas listas. Depois, dependendo do tipo de usuário, vemos se ele pode pegar mais livros e por quanto tempo e se 
+tudo estiver certo, registramos o empréstimo e marcamos o livro como emprestado. Isso garante que as regras para cada tipo de usuário sejam seguidas.
