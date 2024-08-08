@@ -4,18 +4,23 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-public class Main {
-    private static final String ABSOLUTE_PATH = "C:\\biblioteca_dados";
-    private static final String USUARIOS_FILE = ABSOLUTE_PATH + "\\usuarios.txt";
-    private static final String LIVROS_FILE = ABSOLUTE_PATH + "\\livros.txt";
-    private static final String EMPRESTIMOS_FILE = ABSOLUTE_PATH + "\\emprestimos.txt";
-    private static final String RESERVAS_FILE = ABSOLUTE_PATH + "\\reservas.txt";
+import static java.nio.file.Files.readAllLines;
+import static java.nio.file.Files.write;
 
+public class Main {
+
+    /*
+        private static final String ABSOLUTE_PATH = "C:\\biblioteca_dados";
+        public static final String USUARIOS_FILE = ABSOLUTE_PATH + "\\usuarios.txt";
+        private static final String OBRA_FILE = ABSOLUTE_PATH + "\\livros.txt";
+        private static final String EMPRESTIMOS_FILE = ABSOLUTE_PATH + "\\emprestimos.txt";
+        private static final String RESERVAS_FILE = ABSOLUTE_PATH + "\\reservas.txt";
+    */
     public static void main(String[] args) {
         // Esse trecho garante que o diretório especificado por (ABSOLUTE_PATH) esteja
         // presente no sistema de arquivos antes de tentar criar ou escrever arquivos
         // dentro dele.
-        File dir = new File(ABSOLUTE_PATH);
+        File dir = new File(files.getAbsolutePath());
         if (!dir.exists()) {
             dir.mkdirs();
         }
@@ -26,24 +31,27 @@ public class Main {
         Scanner text = new Scanner(System.in);
 
         do {
-            System.out.println("Menu:");
-            System.out.println("1. Cadastrar livro");
-            System.out.println("2. Cadastrar usuário");
-            System.out.println("3. Realizar empréstimo");
-            System.out.println("4. Realizar devolução");
-            System.out.println("5. Realizar reserva");
-            System.out.println("6. Listar todos os empréstimos");
-            System.out.println("7. Listar todas as reservas");
-            System.out.println("8. Listar usuários");
-            System.out.println("9. Listar livros");
-            System.out.println("10. Sair");
-            System.out.print("Escolha uma opção: ");
+            System.out.print("""
+                     =============Menu=============
+                     1. Cadastrar obra
+                     2. Cadastrar usuário
+                     3. Realizar empréstimo
+                     4. Realizar devolução
+                     5. Realizar reserva
+                     6. Listar todos os empréstimos
+                     7. Listar todas as reservas
+                     8. Listar usuários
+                     9. Listar livros
+                     10. Sair
+                     =============================
+                    """);
+
             opcao = text.nextInt();
             text.nextLine();
 
             switch (opcao) {
                 case 1:
-                    cadastrarLivro(text);
+                    cadastrarObra(text);
                     break;
                 case 2:
                     cadastrarUsuario(text);
@@ -67,7 +75,7 @@ public class Main {
                     listarUsuarios();
                     break;
                 case 9:
-                    listarLivros();
+                    listarObras();
                     break;
                 case 10:
                     System.out.println("Saindo.......");
@@ -81,16 +89,17 @@ public class Main {
     }
 
     private static void inicializarDados() {
+        //Files files = new Files();
         // Dados pré-configurados
-        salvarDados(USUARIOS_FILE, "Nome: João, Idade: 25, Sexo: Masculino, Telefone: 123456789, Tipo: Estudante");
-        salvarDados(USUARIOS_FILE, "Nome: Maria, Idade: 30, Sexo: Feminino, Telefone: 987654321, Tipo: Funcionário");
-        salvarDados(USUARIOS_FILE, "Nome: Carlos, Idade: 45, Sexo: Masculino, Telefone: 112233445, Tipo: Professor");
-        salvarDados(LIVROS_FILE,
-                "Título: O Senhor dos Aneis, Autor: J.R.R. Tolkien, Ano: 1954, Área: Fantasia, Editora: Martins Fontes, Número de Folhas: 1200, Digital: false");
-        salvarDados(LIVROS_FILE,
+        salvarDados(Files.getUsuariosFile(), "Nome: João, Idade: 25, Sexo: Masculino, Telefone: 123456789, Tipo: Estudante");
+        salvarDados(Files.getUsuariosFile(), "Nome: Maria, Idade: 30, Sexo: Feminino, Telefone: 987654321, Tipo: Funcionário");
+        salvarDados(Files.getUsuariosFile(), "Nome: Carlos, Idade: 45, Sexo: Masculino, Telefone: 112233445, Tipo: Professor");
+        salvarDados(Files.getObraFile(),
+                "Título: O Senhor dos Papeis, Autor: J.R.R. Tolkien, Ano: 1954, Área: Fantasia, Editora: Martins Fontes, Número de Folhas: 1200, Digital: false");
+        salvarDados(Files.getObraFile(),
                 "Título: O Hobbit, Autor: J.R.R. Tolkien, Ano: 1937, Área: Fantasia, Editora: Martins Fontes, Número de Folhas: 310, Digital: true");
-        salvarDados(EMPRESTIMOS_FILE,
-                "Data: 01/01/2024, Hora: 10:00, Livro: O Senhor dos Anéis, Usuario: João, Tipo: Estudante");
+        salvarDados(Files.getEmprestimosFile(),
+                "Data: 01/01/2024, Hora: 10:00, Obra: O Senhor dos Anéis, Usuario: João, Tipo: Estudante");
     }
 
     private static void salvarDados(String fileName, String data) {
@@ -104,26 +113,26 @@ public class Main {
 
     private static List<String> lerDados(String fileName) {
         try {
-            return Files.readAllLines(Paths.get(fileName));
+            return readAllLines(Paths.get(fileName));
         } catch (IOException e) {
             e.printStackTrace();
             return new ArrayList<>();
         }
     }
 
-    private static void listarLivros() {
-        List<String> livros = lerDados(LIVROS_FILE);
-        if (livros.isEmpty()) {
-            System.out.println("Nenhum livro encontrado.");
+    private static void listarObras() {
+        List<String> obras = lerDados(Files.getObraFile());
+        if (obras.isEmpty()) {
+            System.out.println("Nenhuma obra encontrada.");
         } else {
-            for (String livro : livros) {
-                System.out.println(livro);
+            for (String obra : obras) {
+                System.out.println(obra);
             }
         }
     }
 
     private static void listarUsuarios() {
-        List<String> usuarios = lerDados(USUARIOS_FILE);
+        List<String> usuarios = lerDados(Files.getUsuariosFile());
         if (usuarios.isEmpty()) {
             System.out.println("Nenhum usuário encontrado.");
         } else {
@@ -134,7 +143,7 @@ public class Main {
     }
 
     private static void listarEmprestimos() {
-        List<String> emprestimos = lerDados(EMPRESTIMOS_FILE);
+        List<String> emprestimos = lerDados(Files.getEmprestimosFile());
         if (emprestimos.isEmpty()) {
             System.out.println("Nenhum empréstimo encontrado.");
         } else {
@@ -145,7 +154,7 @@ public class Main {
     }
 
     private static void listarReservas() {
-        List<String> reservas = lerDados(RESERVAS_FILE);
+        List<String> reservas = lerDados(Files.getReservasFile());
         if (reservas.isEmpty()) {
             System.out.println("Nenhuma reserva encontrada.");
         } else {
@@ -156,31 +165,31 @@ public class Main {
     }
 
     private static void realizarDevolucao(Scanner text) {
-        System.out.println("Livro a ser devolvido: ");
+        System.out.println("Obra a ser devolvida: ");
         String titulo = text.nextLine();
 
-        List<String> emprestimos = lerDados(EMPRESTIMOS_FILE);
+        List<String> emprestimos = lerDados(Files.getEmprestimosFile());
         List<String> novosEmprestimos = new ArrayList<>();
 
         boolean found = false;
         for (String emprestimo : emprestimos) {
-            if (emprestimo.contains("Livro: " + titulo)) {
+            if (emprestimo.contains("Obra: " + titulo)) {
                 found = true;
             } else {
                 novosEmprestimos.add(emprestimo);
             }
         }
-        // Se o livro foi encontrado nos empréstimos, ele é removido da lista e o
+        // Se a obra foi encontrado nos empréstimos, ele é removido da lista e o
         // arquivo é atualizado.
         if (found) {
             try {
-                Files.write(Paths.get(EMPRESTIMOS_FILE), novosEmprestimos, StandardOpenOption.TRUNCATE_EXISTING);
-                System.out.println("O livro \"" + titulo + "\" foi devolvido com sucesso.");
+                write(Paths.get(Files.getEmprestimosFile()), novosEmprestimos, StandardOpenOption.TRUNCATE_EXISTING);
+                System.out.println("A obra \"" + titulo + "\" foi devolvida com sucesso.");
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
-            System.out.println("O livro \"" + titulo + "\" não foi encontrado nos empréstimos.");
+            System.out.println("A obra \"" + titulo + "\" não foi encontrada nos empréstimos.");
         }
     }
 
@@ -188,17 +197,17 @@ public class Main {
         System.out.print("Nome do usuário: ");
         String nomeUsuario = text.nextLine();
 
-        System.out.print("Título do livro: ");
-        String tituloLivro = text.nextLine();
+        System.out.print("Título da obra: ");
+        String tituloObra = text.nextLine();
 
         // usados para ler dados de dois arquivos de texto: um que armazena informações
-        // sobre usuários (USUARIOS_FILE) e outro que armazena informações sobre livros
-        // (LIVROS_FILE).
-        List<String> usuarios = lerDados(USUARIOS_FILE);
-        List<String> livros = lerDados(LIVROS_FILE);
+        // sobre usuários (USUARIOS_FILE) e outro que armazena informações sobre obra
+        // (OBRA_FILE).
+        List<String> usuarios = lerDados(Files.getUsuariosFile());
+        List<String> obra = lerDados(Files.getObraFile());
 
         boolean usuarioEncontrado = false;
-        boolean livroEncontrado = false;
+        boolean obraEncontrada = false;
 
         // Este trecho de código procura um usuário específico na lista que se basea no
         // nome. Quando o usuário é encontrado, o tipo de usuário (por exemplo,
@@ -218,23 +227,23 @@ public class Main {
             return;
         }
 
-        for (String livro : livros) {
-            if (livro.contains("Título: " + tituloLivro)) {
-                livroEncontrado = true;
+        for (String obras : obra) {
+            if (obra.contains("Título: " + tituloObra)) {
+                obraEncontrada = true;
                 break;
             }
         }
 
-        if (!livroEncontrado) {
-            System.out.println("Livro não encontrado.");
+        if (!obraEncontrada) {
+            System.out.println("Obra não encontrada.");
             return;
         }
 
         // Verificar se o livro já está emprestado
-        List<String> emprestimos = lerDados(EMPRESTIMOS_FILE);
+        List<String> emprestimos = lerDados(Files.getEmprestimosFile());
         for (String emprestimo : emprestimos) {
-            if (emprestimo.contains("Livro: " + tituloLivro)) {
-                System.out.println("Livro já está emprestado.");
+            if (emprestimo.contains("Obra: " + tituloObra)) {
+                System.out.println("Obra já foi emprestada.");
                 return;
             }
         }
@@ -274,8 +283,8 @@ public class Main {
 
         // Realizar o empréstimo
         String novoEmprestimo = "Data Emprestimo: " + dataEmprestimo + ", Data Devolucao: " + dataDevolucao + ", Hora: "
-                + horaEmprestimo + ", Livro: " + tituloLivro + ", Usuario: " + nomeUsuario + ", Tipo: " + tipoUsuario;
-        salvarDados(EMPRESTIMOS_FILE, novoEmprestimo);
+                + horaEmprestimo + ", Obra: " + tituloObra + ", Usuario: " + nomeUsuario + ", Tipo: " + tipoUsuario;
+        salvarDados(Files.getEmprestimosFile(), novoEmprestimo);
         System.out.println("Empréstimo realizado com sucesso: " + novoEmprestimo);
     }
 
@@ -283,15 +292,15 @@ public class Main {
         System.out.print("Nome do usuário: ");
         String nomeUsuario = text.nextLine();
 
-        System.out.print("Título do livro: ");
-        String tituloLivro = text.nextLine();
+        System.out.print("Título da obra: ");
+        String tituloObra = text.nextLine();
 
-        List<String> usuarios = lerDados(USUARIOS_FILE);
-        List<String> livros = lerDados(LIVROS_FILE);
+        List<String> usuarios = lerDados(Files.getUsuariosFile());
+        List<String> obras = lerDados(Files.getObraFile());
 
         boolean usuarioEncontrado = false;
-        boolean livroEncontrado = false;
-        boolean livroEmprestado = false;
+        boolean obraEncontrada = false;
+        boolean obraEmprestada = false;
 
         for (String usuario : usuarios) {
             if (usuario.contains("Nome: " + nomeUsuario)) {
@@ -305,33 +314,33 @@ public class Main {
             return;
         }
 
-        for (String livro : livros) {
-            if (livro.contains("Título: " + tituloLivro)) {
-                livroEncontrado = true;
+        for (String obra : obras) {
+            if (obra.contains("Título: " + tituloObra)) {
+                obraEncontrada = true;
                 // Verificar se o livro é digital
-                if (!livro.contains("Digital: true")) {
-                    livroEmprestado = true;
+                if (!obra.contains("Digital: true")) {
+                    obraEmprestada = true;
                 }
                 break;
             }
         }
 
-        if (!livroEncontrado) {
-            System.out.println("Livro não encontrado.");
+        if (!obraEncontrada) {
+            System.out.println("Obra não encontrada.");
             return;
         }
 
         // Verificar se o livro já está emprestado
-        List<String> emprestimos = lerDados(EMPRESTIMOS_FILE);
+        List<String> emprestimos = lerDados(Files.getEmprestimosFile());
         for (String emprestimo : emprestimos) {
-            if (emprestimo.contains("Livro: " + tituloLivro)) {
-                livroEmprestado = true;
+            if (emprestimo.contains("Obra: " + tituloObra)) {
+                obraEmprestada = true;
                 break;
             }
         }
 
-        if (!livroEmprestado) {
-            System.out.println("O livro \"" + tituloLivro + "\" não está emprestado e não pode ser reservado.");
+        if (!obraEmprestada) {
+            System.out.println("A obra \"" + tituloObra + "\" não está emprestada e não pode ser reservada.");
             return;
         }
 
@@ -339,8 +348,8 @@ public class Main {
         String dataReserva = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
         // Realizar a reserva
-        String novaReserva = "Data: " + dataReserva + ", Livro: " + tituloLivro + ", Usuario: " + nomeUsuario;
-        salvarDados(RESERVAS_FILE, novaReserva);
+        String novaReserva = "Data: " + dataReserva + ", Obra: " + tituloObra + ", Usuario: " + nomeUsuario;
+        salvarDados(Files.getReservasFile(), novaReserva);
         System.out.println("Reserva realizada com sucesso: " + novaReserva);
     }
 
@@ -363,38 +372,123 @@ public class Main {
 
         String usuario = "Nome: " + nome + ", Idade: " + idade + ", Sexo: " + sexo + ", Telefone: " + telefone
                 + ", Tipo: " + tipo;
-        salvarDados(USUARIOS_FILE, usuario);
+        salvarDados(Files.getUsuariosFile(), usuario);
         System.out.println("Usuário cadastrado com sucesso!");
     }
 
-    private static void cadastrarLivro(Scanner text) {
-        System.out.print("Título do livro: ");
-        String titulo = text.nextLine();
+    private static void cadastrarObra(Scanner text) {
+        String obra = "";
+        
+        int option = 0;
 
-        System.out.print("Nome do(s) autor(es): ");
-        String autores = text.nextLine();
+        do {
+            System.out.print("""
+                ============Cadastrar Obra============
+                1. Midia audio
+                2. Fotografia
+                3. Livro
+                4. Cancelar
+                ======================================
+                """);
 
-        System.out.print("Área do livro: ");
-        String area = text.nextLine();
+            option = text.nextInt();
+            text.nextLine();
 
-        System.out.print("Editora do livro: ");
-        String editora = text.nextLine();
+            if (option == 1 || option == 2 || option == 3) {
+                System.out.print("Título: ");
+                String titulo = text.nextLine();
 
-        System.out.print("Ano de publicação do livro: ");
-        int ano = text.nextInt();
-        text.nextLine();
+                System.out.print("Nome(s) autor(es): ");
+                String autores = text.nextLine();
 
-        System.out.print("Número de folhas do livro: ");
-        int numFolhas = text.nextInt();
-        text.nextLine();
+                System.out.print("Área: ");
+                String area = text.nextLine();
 
-        System.out.print("O livro é digital? (true/false): ");
-        boolean digital = text.nextBoolean();
-        text.nextLine();
+                System.out.print("Ano: ");
+                int ano = text.nextInt();
+                text.nextLine();
 
-        String livro = "Título: " + titulo + ", Autor: " + autores + ", Ano: " + ano + ", Área: " + area + ", Editora: "
-                + editora + ", Número de Folhas: " + numFolhas + ", Digital: " + digital;
-        salvarDados(LIVROS_FILE, livro);
-        System.out.println("Livro cadastrado com sucesso!");
+                System.out.print("Está disponível digitalmente? (true/false): ");
+                boolean digital = text.nextBoolean();
+                text.nextLine();
+
+                switch (option) {
+                    case 1:
+                        System.out.print("Formato: ");
+                        String formato = text.nextLine();
+
+                        System.out.print("Duração: ");
+                        int duracao = text.nextInt();
+
+                        obra = ("Título: " + titulo + ", Autor: " + autores + ", Formato: " + formato +  ", Duração: " + duracao + ", Ano: " + ano + ", Área: " + area +
+                                "Digital: " + digital);
+
+
+
+                        break;
+                    case 2:
+                        System.out.print("Editora do livro: ");
+                        String editora = text.nextLine();
+
+                        System.out.print("Número de folhas do livro: ");
+                        int numFolhas = text.nextInt();
+                        text.nextLine();
+
+                        obra = "Título: " + titulo + ", Autor: " + autores + ", Ano: " + ano + ", Área: " + area + ", Editora: "
+                                + editora + ", Número de Folhas: " + numFolhas + ", Digital: " + digital;
+                        break;
+                    case 3:
+                        System.out.print("Resolução da imagem: ");
+                        String resolucao = text.nextLine();
+
+                        System.out.print("Formato da imagem: ");
+                        String form = text.nextLine();
+
+                        obra = "Título: " + titulo + ", Autor: " + autores + ", Formato: " + form +
+                                 ", Ano: " + ano + ", Área: " + area + ", Digital";
+                        break;
+                }
+                }
+                if (option > 3 || option < 1 ) {
+                    switch (option) {
+                        case 4:
+                            System.out.println("Cancelando.......");
+                            break;
+                    default:
+                        System.out.println("Opção inválida. Tente novamente.");
+                    }
+                }
+            }  while (option != 4);
+        
+
+
+
+
+        if (option == 2) {
+
+
+        } //Livro
+
+        if (option == 3) {
+
+            System.out.print("Resolução da imagem: ");
+            String resolucao = text.nextLine();
+
+            System.out.print("Formato da image: ");
+            String formato = text.nextLine();
+
+            obra = "Título: " + titulo + ", Autor: " + autores + ", Formato: " + formato +
+                    ", Formato: " + formato + ", Ano: " + ano + ", Área: " + area + ", Digital: " + digital;
+        } //Fotografia
+
+        salvarDados(OBRA_FILE, obra);
+        System.out.println("Obra cadastrada com sucesso!");
     }
+
 }
+
+/*
+    * Empréstimos para estudantes: até 3 livros, por até 7 dias
+      Empréstimos para funcionários: até 6 livros, por até 15 dias
+      Empréstimos para professores: até 9 livros, por até 30 dias.
+      * */

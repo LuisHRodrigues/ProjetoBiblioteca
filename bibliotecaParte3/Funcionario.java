@@ -5,7 +5,6 @@ public class Funcionario extends Pessoa {
 	private String cargo;
 
 	public Funcionario() {
-		super();
 		this.departamento= "";
 		this.cargo = "";
 	}

@@ -1,12 +1,11 @@
 public class Reserva {
     private String dataReserva;
-    private Livro livro;
+    private Obra obra;
     private Pessoa usuario;
 
     //Contrutor padão
-    public Reserva(String dataReserva, Livro livro, Pessoa usuario) {
+    public Reserva(String dataReserva,Obra obra, Pessoa usuario) {
         this.dataReserva = dataReserva;
-        this.livro = livro;
         this.usuario = usuario;
     }
 
@@ -19,12 +18,12 @@ public class Reserva {
         this.dataReserva = dataReserva;
     }
 
-    public Livro getLivro() {
-        return livro;
+    public Obra getObra() {
+        return obra;
     }
 
-    public void setLivro(Livro livro) {
-        this.livro = livro;
+    public void setObra(Obra obra) {
+        this.obra = obra;
     }
 
     public Pessoa getUsuario() {
@@ -37,6 +36,6 @@ public class Reserva {
 
     @Override
     public String toString() {
-        return " Data da reserva= " + dataReserva + ", livro= " + livro + ", usuario= " + usuario;
+        return " Data da reserva = " + dataReserva + ", obra = " + obra + ", usuário = " + usuario + ".";
     }
 }
