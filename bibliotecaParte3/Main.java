@@ -20,7 +20,7 @@ public class Main {
         // Esse trecho garante que o diretório especificado por (ABSOLUTE_PATH) esteja
         // presente no sistema de arquivos antes de tentar criar ou escrever arquivos
         // dentro dele.
-        File dir = new File(files.getAbsolutePath());
+        File dir = new File(Files.getAbsolutePath());
         if (!dir.exists()) {
             dir.mkdirs();
         }
@@ -413,7 +413,7 @@ public class Main {
                 text.nextLine();
 
                 switch (option) {
-                    case 1:
+                    case 1: //
                         System.out.print("Formato: ");
                         String formato = text.nextLine();
 
@@ -423,7 +423,7 @@ public class Main {
                         obra = ("Título: " + titulo + ", Autor: " + autores + ", Formato: " + formato +  ", Duração: " + duracao + ", Ano: " + ano + ", Área: " + area +
                                 "Digital: " + digital);
 
-
+                        salvarDados(Files.getObraFile(), obra);
 
                         break;
                     case 2:
@@ -436,6 +436,9 @@ public class Main {
 
                         obra = "Título: " + titulo + ", Autor: " + autores + ", Ano: " + ano + ", Área: " + area + ", Editora: "
                                 + editora + ", Número de Folhas: " + numFolhas + ", Digital: " + digital;
+
+                        salvarDados(Files.getObraFile(), obra);
+
                         break;
                     case 3:
                         System.out.print("Resolução da imagem: ");
@@ -444,8 +447,12 @@ public class Main {
                         System.out.print("Formato da imagem: ");
                         String form = text.nextLine();
 
-                        obra = "Título: " + titulo + ", Autor: " + autores + ", Formato: " + form +
-                                 ", Ano: " + ano + ", Área: " + area + ", Digital";
+                        obra = "Título: " + titulo + ", Autor: " + autores + ", Resolução: " + resolucao + ", Formato: " + form + ", Ano: " + ano + ", Área: " + area + ", Digital";
+
+                        salvarDados(Files.getObraFile(), obra);
+
+                        System.out.println("Obra cadastrada com sucesso!");
+
                         break;
                 }
                 }
@@ -459,30 +466,7 @@ public class Main {
                     }
                 }
             }  while (option != 4);
-        
 
-
-
-
-        if (option == 2) {
-
-
-        } //Livro
-
-        if (option == 3) {
-
-            System.out.print("Resolução da imagem: ");
-            String resolucao = text.nextLine();
-
-            System.out.print("Formato da image: ");
-            String formato = text.nextLine();
-
-            obra = "Título: " + titulo + ", Autor: " + autores + ", Formato: " + formato +
-                    ", Formato: " + formato + ", Ano: " + ano + ", Área: " + area + ", Digital: " + digital;
-        } //Fotografia
-
-        salvarDados(OBRA_FILE, obra);
-        System.out.println("Obra cadastrada com sucesso!");
     }
 
 }
