@@ -10,6 +10,9 @@ import java.awt.event.MouseEvent;
 
 public class Login implements Utility {
 
+    static String user = "";
+    static String pass = "";
+
     public static void loginComponents (JFrame Login, JFrame menuUser, JFrame menuFunc) {
 
         JLabel l = new JLabel("Login");
@@ -37,11 +40,21 @@ public class Login implements Utility {
         login.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (login.getText().equalsIgnoreCase("C"))
+                if (login.getText().equalsIgnoreCase("C")) {
                     Utility.mudarTelas(Login, menuUser);
-                if (login.getText().equalsIgnoreCase("F"))
+                    setUser(login.getText());
+                }
+                if (login.getText().equalsIgnoreCase("F")) {
                     Utility.mudarTelas(Login, menuFunc);
+                    setPass(login.getText());
+                }
             }
         });
     }
+
+    public static void setUser (String user) {Login.user = user;}
+    public static void setPass (String pass) {Login.pass = pass;}
+
+    public static String getPass() {return pass;}
+    public static String getUser() {return user;}
 }

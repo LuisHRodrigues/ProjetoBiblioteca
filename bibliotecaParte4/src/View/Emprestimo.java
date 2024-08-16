@@ -5,7 +5,12 @@ import javax.swing.JLabel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class Emprestimo {
+public class Emprestimo implements Utility {
+
+    static JFrame lise = new JFrame("Empréstimos registrados");
+    static JFrame viem = new JFrame ("Visualizar empréstimo");
+    static JFrame buem = new JFrame ("Buscar empréstimo");
+    static JFrame empt = new JFrame ("Emprestar");
 
     public static void empComponents(JFrame Empr) {
 
@@ -13,6 +18,20 @@ public class Emprestimo {
         JLabel visu = new JLabel("Visualizar empréstimo");
         JLabel busc = new JLabel("Buscar empréstimo");
         JLabel empr = new JLabel("Emprestar");
+
+        Utility.frameStartup(empt, 810, 350);
+        Utility.frameStartup(viem, 810, 350);
+        Utility.frameStartup(buem, 810, 350);
+        Utility.frameStartup(lise, 810, 350);
+
+
+        Utility.crud(empt);
+
+        Utility.retornar(Empr, empt, 600, 25);
+        Utility.retornar(Empr, buem, 600, 25);
+        Utility.retornar(Empr, viem, 600, 25);
+        Utility.retornar(Empr, lise, 600, 25);
+
 
         list.setBounds(135, 50, 300, 30);
         visu.setBounds(135, 100, 300, 30);
@@ -23,9 +42,10 @@ public class Emprestimo {
         Empr.add(busc);
         Empr.add(visu);
         Empr.add(empr);
+
     }
 
-    public static void FuncComp (JFrame EmpFun, JFrame Emprestar) {
+    public static void FuncComp (JFrame EmpFun) {
         JLabel empr = new JLabel("Emprestar (ADM)");
         empr.setBounds(135, 250, 300, 30);
         EmpFun.add(empr);
@@ -33,7 +53,7 @@ public class Emprestimo {
         empr.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Utility.mudarTelas(EmpFun, Emprestar);
+                Utility.mudarTelas(EmpFun, empt);
             }
         });
     }

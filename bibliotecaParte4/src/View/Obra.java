@@ -1,8 +1,6 @@
 package View;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -29,18 +27,30 @@ public class Obra implements Utility {
         Obra.add(list);
         Obra.add(digi);
 
+        Utility.retornar(Obra, livro, 600, 25);
+        Utility.retornar(Obra, livro, 600, 25);
+        Utility.retornar(Obra, livro, 600, 25);
+
+
+        Utility.crud(livro);
+        Utility.crud(fotografia);
+        Utility.crud(midia_audio);
+
         digi.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                String [] opt = {"Livro", "Mídia Aúdio", "Fotografia"};
+                String [] opt = {"Livro", "Mídia Aúdio", "Foto1grafia"};
                 int tipo = JOptionPane.showOptionDialog(null, "Escolha o tipo de obra:", "Acessar obra digital", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opt, opt);
                 switch (tipo) {
                     case 0:
                         Utility.mudarTelas(Obra, livro);
+                        break;
                     case 1:
                         Utility.mudarTelas(Obra, midia_audio);
+                        break;
                     case 2:
                         Utility.mudarTelas(Obra, fotografia);
+                        break;
                 }
             }
         });
@@ -65,8 +75,6 @@ public class Obra implements Utility {
                 Utility.mudarTelas(obraFunc, listObraFunc);
             }
         });
-
-
     }
 
     /*

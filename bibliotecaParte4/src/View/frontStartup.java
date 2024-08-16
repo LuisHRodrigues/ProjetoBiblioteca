@@ -56,7 +56,7 @@ public class frontStartup {
 
         Emprestimo.empComponents(empr);
         Emprestimo.empComponents(emprFun);
-        Emprestimo.FuncComp(emprFun, null);
+        Emprestimo.FuncComp(emprFun);
 
         Obra.obraComponents(obra);
         Obra.obraComponents(obraFun);

@@ -41,16 +41,15 @@ public class Menu implements Utility {
             @Override
             public void mouseClicked(MouseEvent e) {
                 Utility.mudarTelas(Menu, Empr);
+                Emprestimo.empComponents(Empr);
             }
         });
 
         trab.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Utility.mudarTelas(Menu, Trab);
             }
         });
-
 
     }
 
