@@ -20,11 +20,11 @@ public class Login implements Utility {
 
         JButton entrar = new JButton("Entrar");
 
-        l.setBounds(100, 40, 150, 30);
-        s.setBounds(100, 120, 150, 30);
+        l.setBounds(100, 50, 150, 30);
+        s.setBounds(100, 130, 150, 30);
 
         login.setBounds(100, 90, 150, 30);
-        senha.setBounds(100, 160, 150, 30);
+        senha.setBounds(100, 170, 150, 30);
 
         entrar.setBounds(100, 220, 150, 30);
 
@@ -44,5 +44,4 @@ public class Login implements Utility {
             }
         });
     }
-
 }

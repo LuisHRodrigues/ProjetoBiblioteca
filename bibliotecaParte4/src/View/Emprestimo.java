@@ -1,6 +1,7 @@
 package View;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -36,7 +37,6 @@ public class Emprestimo {
             }
         });
     }
-
 }
 
     /*Listar empréstimos (lista todos os empréstimos e fornece botão para visualizar um determinado

@@ -17,11 +17,11 @@ public class frontStartup {
         JFrame rese = new JFrame("Reservas");
         JFrame reseFun = new JFrame("Reserva: ADM");
 
-        JFrame trab = new JFrame("Trabalhos");
-        JFrame trabFun = new JFrame("Trabalhos: ADM");
-
         JFrame empr = new JFrame("Empréstimos");
         JFrame emprFun = new JFrame("Empréstimos: ADM");
+
+        JFrame trab = new JFrame("Submissão de trabalho");
+        JFrame trabFun = new JFrame("Submissão de trabalho: ADM");
 
         JFrame user = new JFrame("Usuários");
 
@@ -32,14 +32,14 @@ public class frontStartup {
         Utility.frameStartup(menuUser,405, 325);
         Utility.frameStartup(menuFunc,405, 365);
 
-        Utility.frameStartup(obra,405, 325);
+        Utility.frameStartup(obra,405, 295);
         Utility.frameStartup(obraFun,405, 365);
 
         Utility.frameStartup(rese,405, 325);
         Utility.frameStartup(reseFun,405, 365);
 
-        Utility.frameStartup(trab,405, 325);
-        Utility.frameStartup(trabFun,405, 365);
+        Utility.frameStartup(trab,810, 360);
+        Utility.frameStartup(trabFun,810, 360);
 
         Utility.frameStartup(empr,405, 325);
         Utility.frameStartup(emprFun,405, 365);
@@ -51,13 +51,19 @@ public class frontStartup {
         Login.loginComponents(login, menuUser, menuFunc);
 
         Menu.menuComponents(menuUser,obra,rese,empr,trab);
-        Menu.menuComponents(menuFunc,obraFun,reseFun,emprFun,trabFun);
+        Menu.menuComponents(menuFunc,obraFun,reseFun,emprFun, trabFun);
+        Menu.FuncComp(menuFunc, user);
 
         Emprestimo.empComponents(empr);
         Emprestimo.empComponents(emprFun);
         Emprestimo.FuncComp(emprFun, null);
 
-        Menu.FuncComp(menuFunc, user);
+        Obra.obraComponents(obra);
+        Obra.obraComponents(obraFun);
+        Obra.FuncComp(obraFun, null);
+
+        Trabalho.trabComponents(trab, menuUser);
+        Trabalho.trabComponents(trabFun, menuFunc);
 
         //Inicialização da tela de login ao começo do programa
 
