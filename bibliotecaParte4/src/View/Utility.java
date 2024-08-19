@@ -4,6 +4,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
+
 public interface Utility {
 
     static void mudarTelas (JFrame ant, JFrame prox){

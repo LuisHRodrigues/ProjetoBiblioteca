@@ -37,7 +37,7 @@ public class Login implements Utility {
         Login.add(senha);
         Login.add(entrar);
 
-        login.addMouseListener(new MouseAdapter() {
+        entrar.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (login.getText().equalsIgnoreCase("C")) {

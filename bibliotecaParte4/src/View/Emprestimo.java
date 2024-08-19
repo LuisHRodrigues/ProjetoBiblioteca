@@ -1,7 +1,11 @@
 package View;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -19,24 +23,56 @@ public class Emprestimo implements Utility {
         JLabel busc = new JLabel("Buscar empréstimo");
         JLabel empr = new JLabel("Emprestar");
 
+
         Utility.frameStartup(empt, 810, 350);
         Utility.frameStartup(viem, 810, 350);
         Utility.frameStartup(buem, 810, 350);
         Utility.frameStartup(lise, 810, 350);
 
+        liseComponents();
+        Utility.crud(lise);
 
-        Utility.crud(empt);
 
-        Utility.retornar(Empr, empt, 600, 25);
-        Utility.retornar(Empr, buem, 600, 25);
-        Utility.retornar(Empr, viem, 600, 25);
-        Utility.retornar(Empr, lise, 600, 25);
+        Utility.retornar(empt,Empr, 600, 25);
+        Utility.retornar(buem,Empr, 600, 25);
+        Utility.retornar(viem,Empr, 600, 25);
+        Utility.retornar(lise,Empr, 600, 25);
 
 
         list.setBounds(135, 50, 300, 30);
         visu.setBounds(135, 100, 300, 30);
         busc.setBounds(135, 150, 300, 30);
         empr.setBounds(135, 200, 300, 30);
+
+
+        list.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Utility.mudarTelas(Empr, lise);
+            }
+        });
+
+        visu.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Utility.mudarTelas(Empr, viem);
+            }
+        });
+
+        busc.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Utility.mudarTelas(Empr, buem);
+            }
+        });
+
+        empr.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Utility.mudarTelas(Empr, empt);
+            }
+        });
+
 
         Empr.add(list);
         Empr.add(busc);
@@ -56,6 +92,22 @@ public class Emprestimo implements Utility {
                 Utility.mudarTelas(EmpFun, empt);
             }
         });
+    }
+
+    public static void liseComponents () {
+        String [] columns = {"ID_Usuário", "ID_Livro", "Data", "Horário"};
+
+        Object [][] data = {
+                {null, null, null, null},
+        };
+
+        JTable tabl = new JTable (data, columns);
+
+        tabl.setBounds(30,40,200,300);
+
+        JScrollPane scrl = new JScrollPane(tabl);
+
+        lise.add(scrl);
     }
 }
 
