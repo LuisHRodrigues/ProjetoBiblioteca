@@ -28,8 +28,8 @@ public class Obra implements Utility {
         Obra.add(digi);
 
         Utility.retornar(Obra, livro, 600, 25);
-        Utility.retornar(Obra, livro, 600, 25);
-        Utility.retornar(Obra, livro, 600, 25);
+        Utility.retornar(Obra, fotografia, 600, 25);
+        Utility.retornar(Obra, midia_audio, 600, 25);
 
 
         Utility.crud(livro);
@@ -43,13 +43,13 @@ public class Obra implements Utility {
                 int tipo = JOptionPane.showOptionDialog(null, "Escolha o tipo de obra:", "Acessar obra digital", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opt, opt);
                 switch (tipo) {
                     case 0:
-                        Utility.mudarTelas(Obra, livro);
+                        Utility.mudarTelas(livro, Obra);
                         break;
                     case 1:
-                        Utility.mudarTelas(Obra, midia_audio);
+                        Utility.mudarTelas(midia_audio, Obra);
                         break;
                     case 2:
-                        Utility.mudarTelas(Obra, fotografia);
+                        Utility.mudarTelas(fotografia, Obra);
                         break;
                 }
             }

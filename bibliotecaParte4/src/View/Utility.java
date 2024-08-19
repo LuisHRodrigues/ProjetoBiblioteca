@@ -2,6 +2,8 @@ package View;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JTable;
@@ -26,7 +28,7 @@ public interface Utility {
 
         retornar.setBounds(x, y, 100, 30);
 
-        prox.add(retornar);
+        ant.add(retornar);
 
         retornar.addMouseListener(new MouseAdapter() {
             @Override
@@ -47,10 +49,18 @@ public interface Utility {
         edit.setBounds(314, 25, 100, 30);
         excl.setBounds(456, 25, 100, 30);
 
-
         center.add(cads);
         center.add(visu);
         center.add(edit);
         center.add(excl);
+    }
+
+    static void table (JFrame frame, Object [][] data, String columns []) {
+        JTable tble = new JTable(data, columns);
+        JScrollPane scrl = new JScrollPane(tble);
+        JPanel plce = new JPanel(new FlowLayout());
+        plce.setBounds(0, 40, 300, 300);
+        plce.add(scrl);
+        frame.add(plce);
     }
 }

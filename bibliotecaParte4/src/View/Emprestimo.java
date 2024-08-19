@@ -1,10 +1,6 @@
 package View;
 
-import javax.swing.JLabel;
-import javax.swing.JTable;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -27,16 +23,14 @@ public class Emprestimo implements Utility {
         Utility.frameStartup(empt, 810, 350);
         Utility.frameStartup(viem, 810, 350);
         Utility.frameStartup(buem, 810, 350);
-        Utility.frameStartup(lise, 810, 350);
+        Utility.frameStartup(lise, 500, 350);
 
-        liseComponents();
-        Utility.crud(lise);
+        liseComponents(Empr);
 
-
-        Utility.retornar(empt,Empr, 600, 25);
-        Utility.retornar(buem,Empr, 600, 25);
-        Utility.retornar(viem,Empr, 600, 25);
-        Utility.retornar(lise,Empr, 600, 25);
+        Utility.retornar(empt, Empr, 600, 25);
+        Utility.retornar(buem, Empr, 600, 25);
+        Utility.retornar(viem, Empr, 600, 25);
+        Utility.retornar(lise, Empr, 300, 25);
 
 
         list.setBounds(135, 50, 300, 30);
@@ -94,20 +88,31 @@ public class Emprestimo implements Utility {
         });
     }
 
-    public static void liseComponents () {
+    public static void liseComponents (JFrame Empr) {
         String [] columns = {"ID_Usuário", "ID_Livro", "Data", "Horário"};
 
         Object [][] data = {
                 {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
         };
 
-        JTable tabl = new JTable (data, columns);
+        Utility.table(lise, data, columns);
 
-        tabl.setBounds(30,40,200,300);
+        JButton visu = new JButton("Visualizar empréstimo");
 
-        JScrollPane scrl = new JScrollPane(tabl);
+        visu.setBounds(250, 25, 100, 30);
 
-        lise.add(scrl);
+        visu.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Utility.mudarTelas(lise, Empr);
+            }
+        });
+
+        lise.add(visu);
+
+
     }
 }
 
