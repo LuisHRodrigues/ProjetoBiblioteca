@@ -12,8 +12,7 @@ public class Login implements Utility {
 
     static String user = "";
     static String pass = "";
-
-    public static void loginComponents (JFrame Login, JFrame menuUser, JFrame menuFunc) {
+    public static void loginComponents (JFrame Log_in, JFrame Menu) {
 
         JLabel l = new JLabel("Login");
         JLabel s = new JLabel("Senha");
@@ -31,25 +30,21 @@ public class Login implements Utility {
 
         entrar.setBounds(100, 220, 150, 30);
 
-        Login.add(l);
-        Login.add(login);
-        Login.add(s);
-        Login.add(senha);
-        Login.add(entrar);
+        Log_in.add(l);
+        Log_in.add(login);
+        Log_in.add(s);
+        Log_in.add(senha);
+        Log_in.add(entrar);
 
         entrar.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (login.getText().equalsIgnoreCase("C")) {
-                    Utility.mudarTelas(Login, menuUser);
-                    setUser(login.getText());
-                }
-                if (login.getText().equalsIgnoreCase("F")) {
-                    Utility.mudarTelas(Login, menuFunc);
-                    setPass(login.getText());
-                }
+                setUser(login.getText());
+                if (Login.getUser().equalsIgnoreCase("F") || Login.getUser().equalsIgnoreCase("C") )
+                    Utility.mudarTelas(Log_in, Menu);
             }
         });
+        setUser("F"); //Since it`s not being saved up there...
     }
 
     public static void setUser (String user) {Login.user = user;}

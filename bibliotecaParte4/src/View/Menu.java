@@ -7,7 +7,9 @@ import java.awt.event.MouseEvent;
 
 public class Menu implements Utility {
 
-    public static void menuComponents (JFrame Menu, JFrame Obra, JFrame Rese, JFrame Empr, JFrame Trab) {
+    public static void menuComponents (JFrame Menu, JFrame Obra, JFrame Rese, JFrame Empr, JFrame Trab, JFrame Users, JFrame login) {
+        Utility.retornar(Menu,login,135, 286);
+
         JLabel obra = new JLabel("Obras");
         JLabel rese = new JLabel("Reservas");
         JLabel empr = new JLabel("Empréstimos");
@@ -17,6 +19,7 @@ public class Menu implements Utility {
         rese.setBounds(135, 100, 300, 30);
         empr.setBounds(135, 150, 300, 30);
         trab.setBounds(135, 200, 300, 30);
+
 
         Menu.add(obra);
         Menu.add(empr);
@@ -41,24 +44,26 @@ public class Menu implements Utility {
             @Override
             public void mouseClicked(MouseEvent e) {
                 Utility.mudarTelas(Menu, Empr);
-                Emprestimo.empComponents(Empr);
             }
         });
 
         trab.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                Utility.mudarTelas(Menu, Trab);
             }
         });
 
+        if (Login.getUser().equalsIgnoreCase("F")) {
+            FuncComp(Menu, Users);
+        }
     }
 
     public static void FuncComp (JFrame Menu, JFrame User) {
         JLabel user = new JLabel("Usuários");
         user.setBounds(135, 250, 300, 30);
         Menu.add(user);
-
-        User.addMouseListener(new MouseAdapter() {
+        user.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 Utility.mudarTelas(Menu, User);
